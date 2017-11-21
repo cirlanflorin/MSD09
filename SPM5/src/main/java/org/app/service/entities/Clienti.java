@@ -1,18 +1,21 @@
 package org.app.service.entities;
 
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import static javax.persistence.CascadeType.ALL;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 @Entity
-public class Clienti {
+public class Clienti implements Serializable{
 	@Id @GeneratedValue
 	private Integer IdClient;
 	private String DenSoc;
@@ -21,10 +24,10 @@ public class Clienti {
 	private String Telefon;
 	private String Email;
 	
-	@OneToMany
+	@OneToMany(mappedBy="clienti", cascade = ALL, fetch=FetchType.EAGER)
 	private List<Proiecte> proiecte = new ArrayList<>();
 	
-	@OneToMany
+	@OneToMany(mappedBy="clienti",cascade = ALL, fetch=FetchType.EAGER)
 	private List<Suport> suport = new ArrayList<>();
 
 	public Integer getIdClient() {
@@ -105,6 +108,16 @@ public class Clienti {
 
 	public Clienti() {
 		super();
+	}
+
+	public Clienti(Integer idClient, String denSoc, Integer cUI, String adresa, String telefon, String email) {
+		super();
+		IdClient = idClient;
+		DenSoc = denSoc;
+		CUI = cUI;
+		Adresa = adresa;
+		Telefon = telefon;
+		Email = email;
 	}
 
 	

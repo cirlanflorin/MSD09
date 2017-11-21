@@ -1,10 +1,20 @@
 package org.app.service.entities;
 
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 
 @Entity
-public class DetaliiProiecte extends Proiecte {
+@Table(name="DetaliiProiecte")
+@DiscriminatorValue("DetaliiProiect")
+public class DetaliiProiecte extends Proiecte implements Serializable{
+	
 	private Double Buget;
 	private String Observatii;
 	private String TimpAlocat;
@@ -43,6 +53,15 @@ public class DetaliiProiecte extends Proiecte {
 		super(idProiect, denumire, perioada, status, clienti, personal);
 		// TODO Auto-generated constructor stub
 	}
+	public DetaliiProiecte(Integer idProiect, String denumire, Integer perioada, String status, Clienti clienti,
+			Personal personal, Double buget, String observatii, String timpAlocat, String tipTraining) {
+		super(idProiect, denumire, perioada, status, clienti, personal);
+		Buget = buget;
+		Observatii = observatii;
+		TimpAlocat = timpAlocat;
+		TipTraining = tipTraining;
+	}
+	
 	
 
 	

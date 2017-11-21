@@ -2,17 +2,21 @@ package org.app.service.entities;
 
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import static javax.persistence.CascadeType.ALL;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 
 @Entity
-public class Personal {
+public class Personal implements Serializable{
 	@Id @GeneratedValue
 	private Integer IdTrainer;
 	private String Nume;
@@ -21,11 +25,12 @@ public class Personal {
 	private String Specializare;
 	private String Telefon;
 	private String Email;
-	
-	@OneToMany
+
+	@OneToMany(mappedBy="personal",cascade = ALL, fetch=FetchType.EAGER)
 	private List<Proiecte> proiecte = new ArrayList<>();
 	
-	@OneToMany
+
+	@OneToMany(mappedBy="personal",cascade = ALL, fetch=FetchType.EAGER)
 	private List<Suport> suport = new ArrayList<>();
 
 	public Integer getIdTrainer() {
@@ -115,6 +120,18 @@ public class Personal {
 
 	public Personal() {
 		super();
+	}
+
+	public Personal(Integer idTrainer, String nume, String prenume, Integer experienta, String specializare,
+			String telefon, String email) {
+		super();
+		IdTrainer = idTrainer;
+		Nume = nume;
+		Prenume = prenume;
+		Experienta = experienta;
+		Specializare = specializare;
+		Telefon = telefon;
+		Email = email;
 	}
 
 

@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.GeneratedValue;
 
 
 @Entity
-public class Suport {
+public class Suport implements Serializable{
 	@Id @GeneratedValue
 	private Integer IdSuport;
     private String TipInterventie;

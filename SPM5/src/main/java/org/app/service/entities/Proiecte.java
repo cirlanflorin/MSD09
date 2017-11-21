@@ -1,18 +1,29 @@
 package org.app.service.entities;
 
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+import static javax.persistence.InheritanceType.JOINED;
 
 
 
 @Entity
-@Access(AccessType.FIELD)
-public class Proiecte {
+@Table(name="Proiecte")
+@Inheritance(strategy = JOINED)
+@DiscriminatorColumn(name="TYPE",discriminatorType=DiscriminatorType.STRING,length=20)
+@DiscriminatorValue("Proiecte")
+public abstract class Proiecte  {
 	@Id @GeneratedValue
 	private Integer IdProiect;
 	private String Denumire;
@@ -20,11 +31,10 @@ public class Proiecte {
 	private String Status;
 	
 	@ManyToOne
-	@JoinColumn(name="clienti")
 	private Clienti clienti ;
 	
+
 	@ManyToOne
-	@JoinColumn(name="personal")
 	private Personal personal;
 
 	public Integer getIdProiect() {
@@ -88,7 +98,6 @@ public class Proiecte {
 	public Proiecte() {
 		super();
 	}
-	
-	
-	
+
+
 }
