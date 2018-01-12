@@ -35,7 +35,7 @@ public class TestSuportClientiDataServiceEJBAgg {
 	@Deployment
 	public static Archive<?> createDeployment(){
 		 return ShrinkWrap
-                .create(WebArchive.class, "msd-test.war")
+                .create(WebArchive.class)
                 .addPackage(Clienti.class.getPackage())
                 .addClass(SuportClientiDataService.class)
                 .addClass(SuportClientiDataServiceEJB.class)
@@ -54,7 +54,7 @@ public class TestSuportClientiDataServiceEJBAgg {
 	@Test
 	public void test2_GetSuport() {
 		logger.info("DEBUG: Junit TESTING: testGetProject 7002 ...");
-		Suport suport = service.getSuportById(7002);
+		Suport suport = service.getSuportById(11);
 		assertNotNull("Fail to Get Project 7002!", suport);
 	}
 	/* CREATE Test 2: create aggregate*/

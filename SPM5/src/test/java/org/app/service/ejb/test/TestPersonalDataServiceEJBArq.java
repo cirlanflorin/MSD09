@@ -34,7 +34,7 @@ public class TestPersonalDataServiceEJBArq {
 	@Deployment
 	public static Archive<?> createDeployment(){
 		 return ShrinkWrap
-                .create(WebArchive.class, "msd-test.war")
+                .create(WebArchive.class)
                 .addPackage(Personal.class.getPackage())
                 .addClass(PersonalDataService.class)
                 .addClass(PersonalDataServiceEJB.class)

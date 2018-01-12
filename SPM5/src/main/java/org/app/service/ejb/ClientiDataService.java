@@ -11,10 +11,12 @@ public interface ClientiDataService {
 
 	//Create or Update
 	
-	Clienti addClient(Clienti clientToAdd);
+	Clienti addClient(Clienti clientToAdd) throws Exception;
 	
 	//Delete
-	String removeClient(Clienti clientToDelete);
+	Collection<Clienti> removeClient(Clienti clientToDelete);
+	
+	String remove(Integer Id) throws Exception;
 	
 	//Read
 	Clienti getClientByID(Integer clientID);

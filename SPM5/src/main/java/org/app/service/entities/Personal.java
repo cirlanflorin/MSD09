@@ -3,6 +3,12 @@ package org.app.service.entities;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -14,7 +20,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
-
+@XmlRootElement(name="personal")
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 public class Personal implements Serializable{
 	@Id @GeneratedValue
@@ -33,6 +40,7 @@ public class Personal implements Serializable{
 	@OneToMany(mappedBy="personal",cascade = ALL, fetch=FetchType.EAGER)
 	private List<Suport> suport = new ArrayList<>();
 
+	@XmlElement
 	public Integer getIdTrainer() {
 		return IdTrainer;
 	}
@@ -41,6 +49,7 @@ public class Personal implements Serializable{
 		this.IdTrainer = idTrainer;
 	}
 
+	@XmlElement
 	public String getNume() {
 		return Nume;
 	}
@@ -49,6 +58,7 @@ public class Personal implements Serializable{
 		this.Nume = nume;
 	}
 
+	@XmlElement
 	public String getPrenume() {
 		return Prenume;
 	}
@@ -57,6 +67,7 @@ public class Personal implements Serializable{
 		this.Prenume = prenume;
 	}
 
+	@XmlElement
 	public Integer getExperienta() {
 		return Experienta;
 	}
@@ -65,6 +76,7 @@ public class Personal implements Serializable{
 		this.Experienta = experienta;
 	}
 
+	@XmlElement
 	public String getSpecializare() {
 		return Specializare;
 	}
@@ -73,6 +85,7 @@ public class Personal implements Serializable{
 		this.Specializare = specializare;
 	}
 
+	@XmlElement
 	public String getTelefon() {
 		return Telefon;
 	}
@@ -81,6 +94,7 @@ public class Personal implements Serializable{
 		this.Telefon = telefon;
 	}
 
+	@XmlElement
 	public String getEmail() {
 		return Email;
 	}
@@ -89,6 +103,7 @@ public class Personal implements Serializable{
 		this.Email = email;
 	}
 
+	@XmlElements({@XmlElement(name = "proiecte_p", type = Proiecte.class)})
 	public List<Proiecte> getProiecte() {
 		return proiecte;
 	}
@@ -97,6 +112,7 @@ public class Personal implements Serializable{
 		this.proiecte = proiecte;
 	}
 
+	@XmlElements({@XmlElement(name = "suport_s", type = Suport.class)})
 	public List<Suport> getSuport() {
 		return suport;
 	}
@@ -105,6 +121,17 @@ public class Personal implements Serializable{
 		this.suport = suport;
 	}
 
+	public static String BASE_URL = "http://localhost:8080/SPM5/data/personalp/";
+	@XmlElement(name = "link")
+    public AtomLink getLink() throws Exception {
+		String restUrl = BASE_URL + this.getIdTrainer();
+        return new AtomLink(restUrl, "get-personal");
+    }	
+	
+	public void setLink(AtomLink link){
+		
+	}
+	
 	public Personal(Integer idTrainer, String nume, String prenume, Integer experienta, String specializare,
 			String telefon, String email, List<Proiecte> proiecte, List<Suport> suport) {
 		this.IdTrainer = idTrainer;
@@ -134,6 +161,4 @@ public class Personal implements Serializable{
 		Email = email;
 	}
 
-
-	
 }

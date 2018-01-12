@@ -7,6 +7,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +19,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
 
-
+@XmlRootElement(name="suport") 
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 public class Suport implements Serializable{
 	@Id @GeneratedValue
@@ -36,6 +41,7 @@ public class Suport implements Serializable{
 	@JoinColumn(name="personal")
 	private Personal personal;
 
+	@XmlElement
 	public Integer getIdSuport() {
 		return IdSuport;
 	}
@@ -44,6 +50,7 @@ public class Suport implements Serializable{
 		IdSuport = idSuport;
 	}
 
+	@XmlElement
 	public String getTipInterventie() {
 		return TipInterventie;
 	}
@@ -52,6 +59,7 @@ public class Suport implements Serializable{
 		TipInterventie = tipInterventie;
 	}
 
+	@XmlElement
 	public Date getData() {
 		return Data;
 	}
@@ -60,6 +68,7 @@ public class Suport implements Serializable{
 		Data = data;
 	}
 
+	@XmlElement
 	public Double getCost() {
 		return Cost;
 	}
@@ -68,6 +77,7 @@ public class Suport implements Serializable{
 		Cost = cost;
 	}
 
+	@XmlElement
 	public String getObservatii() {
 		return Observatii;
 	}
@@ -76,6 +86,7 @@ public class Suport implements Serializable{
 		Observatii = observatii;
 	}
 
+	@XmlElement
 	public Integer getDurata() {
 		return Durata;
 	}
@@ -99,7 +110,28 @@ public class Suport implements Serializable{
 	public void setPersonal(Personal personal) {
 		this.personal = personal;
 	}
-
+/*
+	public static String BASE_URL = Clienti.BASE_URL;
+	@XmlElement(name = "link")
+    public AtomLink getLink() throws Exception {
+		String restUrl = BASE_URL 
+				+ ((this.getClienti() != null) ? this.getClienti().getIdClient() : "")
+				+ "suport/" 
+				+ this.getIdSuport();
+        return new AtomLink(restUrl, "get-suport");
+    }*/
+	
+	public static String BASE_URL = "http://localhost:8080/SPM5/data/suports/";
+	@XmlElement(name = "link")
+    public AtomLink getLink() throws Exception {
+		String restUrl = BASE_URL + this.getIdSuport();
+        return new AtomLink(restUrl, "get-suport");
+    }	
+	
+	public void setLink(AtomLink link){
+		
+	}
+	
 	public Suport(Integer idSuport, String tipInterventie, Date data, Double cost, String observatii, Integer durata,
 			Clienti clienti, Personal personal) {
 		IdSuport = idSuport;
@@ -110,6 +142,13 @@ public class Suport implements Serializable{
 		Durata = durata;
 		this.clienti = clienti;
 		this.personal = personal;
+	}
+
+	
+	public Suport(Integer idSuport, String tipInterventie) {
+		super();
+		IdSuport = idSuport;
+		TipInterventie = tipInterventie;
 	}
 
 	public Suport() {

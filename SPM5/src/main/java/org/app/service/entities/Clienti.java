@@ -12,8 +12,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement(name="clienti") 
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 public class Clienti implements Serializable{
 	@Id @GeneratedValue
@@ -30,6 +37,7 @@ public class Clienti implements Serializable{
 	@OneToMany(mappedBy="clienti",cascade = ALL, fetch=FetchType.EAGER)
 	private List<Suport> suport = new ArrayList<>();
 
+	@XmlElement
 	public Integer getIdClient() {
 		return IdClient;
 	}
@@ -38,6 +46,7 @@ public class Clienti implements Serializable{
 		this.IdClient = idClient;
 	}
 
+	@XmlElement
 	public String getDenSoc() {
 		return DenSoc;
 	}
@@ -46,6 +55,7 @@ public class Clienti implements Serializable{
 		this.DenSoc = denSoc;
 	}
 
+	@XmlElement
 	public Integer getCUI() {
 		return CUI;
 	}
@@ -54,6 +64,7 @@ public class Clienti implements Serializable{
 		this.CUI = cUI;
 	}
 
+	@XmlElement
 	public String getAdresa() {
 		return Adresa;
 	}
@@ -62,6 +73,7 @@ public class Clienti implements Serializable{
 		this.Adresa = adresa;
 	}
 
+	@XmlElement
 	public String getTelefon() {
 		return Telefon;
 	}
@@ -70,6 +82,7 @@ public class Clienti implements Serializable{
 		this.Telefon = telefon;
 	}
 
+	@XmlElement
 	public String getEmail() {
 		return Email;
 	}
@@ -78,6 +91,7 @@ public class Clienti implements Serializable{
 		this.Email = email;
 	}
 
+	//@XmlElements({@XmlElement(name = "proiecte_p", type = Proiecte.class)})
 	public List<Proiecte> getProiecte() {
 		return proiecte;
 	}
@@ -86,6 +100,7 @@ public class Clienti implements Serializable{
 		this.proiecte = proiecte;
 	}
 
+	//@XmlElements({@XmlElement(name = "suport_s", type = Suport.class)})
 	public List<Suport> getSuport() {
 		return suport;
 	}
@@ -94,6 +109,16 @@ public class Clienti implements Serializable{
 		this.suport = suport;
 	}
 
+	public static String BASE_URL = "http://localhost:8080/SPM5/data/clientic/";
+	@XmlElement(name = "link")
+    public AtomLink getLink() throws Exception {
+		String restUrl = BASE_URL + this.getIdClient();
+        return new AtomLink(restUrl, "get-client");
+    }	
+	
+	public void setLink(AtomLink link){
+		
+	}
 	public Clienti(Integer idClient, String denSoc, Integer cUI, String adresa, String telefon, String email,
 			List<Proiecte> proiecte, List<Suport> suport) {
 		this.IdClient = idClient;

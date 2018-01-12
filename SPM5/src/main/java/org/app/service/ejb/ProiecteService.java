@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Remote;
 
+import org.app.service.entities.Clienti;
 import org.app.service.entities.Proiecte;
 
 @Remote
@@ -12,7 +13,8 @@ public interface ProiecteService {
 	Proiecte addProiecte(Proiecte proiecteAdd);
 	
 	//delete
-	String removeProiecte(Proiecte proiecteToDelete);
+	Collection<Proiecte> removeProiecte(Proiecte proiecteToDelete);
+	String remove(Integer Id) throws Exception;
 	
 	//read
 	Proiecte getProiecteByIdProiect(Integer IdProiecte);

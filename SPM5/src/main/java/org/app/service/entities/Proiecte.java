@@ -7,6 +7,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -17,7 +21,8 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 import static javax.persistence.InheritanceType.JOINED;
 
 
-
+@XmlRootElement(name="proiecte") 
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name="Proiecte")
 @Inheritance(strategy = JOINED)
@@ -37,6 +42,7 @@ public abstract class Proiecte  {
 	@ManyToOne
 	private Personal personal;
 
+	@XmlElement
 	public Integer getIdProiect() {
 		return IdProiect;
 	}
@@ -45,6 +51,7 @@ public abstract class Proiecte  {
 		IdProiect = idProiect;
 	}
 
+	@XmlElement
 	public String getDenumire() {
 		return Denumire;
 	}
@@ -53,6 +60,7 @@ public abstract class Proiecte  {
 		Denumire = denumire;
 	}
 
+	@XmlElement
 	public Integer getPerioada() {
 		return Perioada;
 	}
@@ -61,6 +69,7 @@ public abstract class Proiecte  {
 		Perioada = perioada;
 	}
 
+	@XmlElement
 	public String getStatus() {
 		return Status;
 	}
@@ -85,6 +94,16 @@ public abstract class Proiecte  {
 		this.personal = personal;
 	}
 
+	public static String BASE_URL = "http://localhost:8080/SPM5/data/proiectp/";
+	@XmlElement(name = "link")
+    public AtomLink getLink() throws Exception {
+		String restUrl = BASE_URL + this.getIdProiect();
+        return new AtomLink(restUrl, "get-proiect");
+    }	
+	
+	public void setLink(AtomLink link){
+		
+	}
 	public Proiecte(Integer idProiect, String denumire, Integer perioada, String status, Clienti clienti,
 			Personal personal) {
 		IdProiect = idProiect;

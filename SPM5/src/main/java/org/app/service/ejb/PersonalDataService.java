@@ -16,7 +16,8 @@ public interface PersonalDataService {
 	Collection<Personal> getPersonal();
 	
 	//delete
-	String removePersonal(Personal personalToDelete);
+	Collection<Personal> removePersonal(Personal personalToDelete);
+	String remove(Integer Id) throws Exception;
 	
 	//custom read/query
 	Personal getPersonalByName(String PersonalName);

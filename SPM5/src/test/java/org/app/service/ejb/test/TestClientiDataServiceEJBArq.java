@@ -63,7 +63,7 @@ public class TestClientiDataServiceEJBArq {
 		
 	}
 	@Test
-	public void test3_AddClient() {
+	public void test3_AddClient() throws Exception {
 		Integer clientToAdd = 4;
 		for (int i=1; i <= clientToAdd; i++){
 			//service.addFeature(new Feature(100 + i, "Feature_" + (100 + i)));

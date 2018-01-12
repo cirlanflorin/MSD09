@@ -18,7 +18,8 @@ public interface SuportDataService {
 		Collection<Suport> getSuport();
 		
 		//delete
-		String removeSuport(Suport suportToDelete);
+		Collection<Suport> removeSuport(Suport suportToDelete);
+		String remove(Integer Id) throws Exception;
 		
 		//custom read/query
 		Suport getSuportByName(String SuportName);
